@@ -16,11 +16,13 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     
     var todoItems : [ToDoItem] = []
     @IBOutlet weak var addButton: NSButton!
+    @IBOutlet weak var deleteButton: NSButton!
     @IBOutlet weak var textField: NSTextField!
     @IBOutlet weak var importanceCheckBox: NSButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         getTodoItems()
+        deleteButton.isHidden = false
 
 
         // Do any additional setup after loading the view.
@@ -50,6 +52,14 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     
     
     @IBOutlet weak var tableHeader: NSTableHeaderView!
+    
+    func setupHeader(){
+        
+        // to be added in the future
+        
+    }
+    
+    
     @IBAction func addButtonClicked(_ sender: Any) {
         
         if textField.stringValue != "" {
@@ -72,6 +82,21 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         } else {return}
             
     }
+    
+    
+    @IBAction func deleteButtonClicked(_ sender: Any) {
+        
+        
+        let toDoItem  = todoItems [tableView.selectedRow]
+        if let context = (NSApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
+            context.delete(toDoItem)
+            (NSApplication.shared.delegate as? AppDelegate)?.saveAction(nil)
+            getTodoItems()
+            deleteButton.isEnabled = false
+        }
+        
+    }
+    
     
     // MARK: - TableView Codes
     
@@ -106,4 +131,15 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
 
         return nil
     }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        print(tableView.selectedRow)
+        if tableView.selectedRow == -1 {
+            deleteButton.isEnabled = false
+        } else {
+        deleteButton.isEnabled = true
+        }
+        
+    }
+    
 }
