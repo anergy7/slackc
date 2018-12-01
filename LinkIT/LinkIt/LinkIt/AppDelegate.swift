@@ -33,9 +33,44 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
     }
+    
+    func printPasteBoard() {
+        
+        if let items = NSPasteboard.general.pasteboardItems {
+            for item in items {
+                for type in item.types {
+                    print("Type:\(type)")
+                    print("String:\(String(describing: item.string(forType: type)))")
+                }
+            }
+        }
+    }
 
     @objc func linkIt(){
+//        printPasteBoard()
+        
         print("We made it")
+        if let items = NSPasteboard.general.pasteboardItems {
+            for item in items {
+                for type in item.types {
+                    print(type.rawValue)
+                    if type.rawValue == "public.utf8-plain-text" {
+                        if let url = item.string(forType: type) {
+                            printPasteBoard()
+                            print(url)
+                            NSPasteboard.general.clearContents()
+                            NSPasteboard.general.setString("<a href=\"\(url)\">\(url)</a>", forType: NSPasteboard.PasteboardType(rawValue: "public.html"))
+                            
+                            NSPasteboard.general.setString(url, forType: NSPasteboard.PasteboardType(rawValue: "public.utf8-plain-text"))
+
+                            
+                            printPasteBoard()
+                        }
+                    }
+                }
+            }
+        }
+
     }
     
     @objc func quit(){
