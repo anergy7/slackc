@@ -59,10 +59,10 @@
 			children = (
 				806D34A621B2F1F5003EDD67 /* AppDelegate.swift */,
 				806D34B621B2F4CD003EDD67 /* MainWindowController.swift */,
+				806D34B821B2F584003EDD67 /* CreateAccountViewController.swift */,
 				806D34A821B2F1F5003EDD67 /* LoginViewController.swift */,
 				806D34AA21B2F1F6003EDD67 /* Assets.xcassets */,
 				806D34AC21B2F1F6003EDD67 /* Main.storyboard */,
-				806D34B821B2F584003EDD67 /* CreateAccountViewController.swift */,
 				806D34AF21B2F1F6003EDD67 /* Info.plist */,
 				806D34B021B2F1F6003EDD67 /* slackc.entitlements */,
 			);

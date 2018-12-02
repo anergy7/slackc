@@ -23,6 +23,8 @@ class LoginViewController: NSViewController {
     }
 
     @IBAction func createAccountClicked(_ sender: Any) {
+        
+        print("registerClicked")
         if let mainWC = view.window?.windowController as? MainWindowController {
             mainWC.moveToCreateAccout()
         }

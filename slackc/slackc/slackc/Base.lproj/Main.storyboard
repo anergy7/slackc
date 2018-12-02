@@ -705,13 +705,13 @@
         <!--Login View Controller-->
         <scene sceneID="hIz-AP-VOD">
             <objects>
-                <viewController id="XfG-lQ-9wD" customClass="LoginViewController" customModule="slackc" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="270"/>
+                <viewController storyboardIdentifier="loginVC" id="XfG-lQ-9wD" customClass="LoginViewController" customModule="slackc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" identifier="loginVC" wantsLayer="YES" id="m2S-Jp-Qdl">
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7dN-bg-KsY">
-                                <rect key="frame" x="165" y="227" width="150" height="23"/>
+                                <rect key="frame" x="165" y="257" width="150" height="23"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="UserJourneyMap" id="Ki2-yR-m0K">
                                     <font key="font" metaFont="system" size="19"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -719,7 +719,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MeX-kp-Fug">
-                                <rect key="frame" x="140" y="185" width="200" height="22"/>
+                                <rect key="frame" x="140" y="215" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="wf7-Tw-qob"/>
                                 </constraints>
@@ -730,7 +730,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="D9o-xB-w7L">
-                                <rect key="frame" x="140" y="143" width="200" height="22"/>
+                                <rect key="frame" x="140" y="173" width="200" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Kvn-Pc-IVj"/>
                                 </constraints>
@@ -741,7 +741,7 @@
                                 </textFieldCell>
                             </textField>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1NM-Ds-sDS">
-                                <rect key="frame" x="203" y="95" width="74" height="32"/>
+                                <rect key="frame" x="203" y="125" width="74" height="32"/>
                                 <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="U6e-pG-Plv">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -784,31 +784,134 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="75" y="655"/>
+            <point key="canvasLocation" x="75" y="670"/>
         </scene>
         <!--Create Account View Controller-->
         <scene sceneID="dkr-OB-Jch">
             <objects>
                 <viewController storyboardIdentifier="createAccountVC" id="op8-ZP-CkU" customClass="CreateAccountViewController" customModule="slackc" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" identifier="createAccountVC" id="gRh-Q4-DbQ">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <rect key="frame" x="0.0" y="0.0" width="500" height="299"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H9Y-Xr-Flm">
-                                <rect key="frame" x="207" y="243" width="45" height="17"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Create" id="d3Y-Sa-LGD">
-                                    <font key="font" usesAppearanceFont="YES"/>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b1H-pn-QTd">
+                                <rect key="frame" x="150" y="212" width="200" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="Mld-0a-RhH"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="you@email.com" drawsBackground="YES" id="4yI-Wa-hFE">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1XB-es-RGf">
+                                <rect key="frame" x="150" y="170" width="200" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="TSu-hT-VAN"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" id="UkP-2v-OwG">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="i1e-Vd-XN2">
+                                <rect key="frame" x="205" y="96" width="90" height="32"/>
+                                <buttonCell key="cell" type="push" title="Register" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="L1B-Fb-jHJ">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="oyw-tJ-vZy">
+                                <rect key="frame" x="139" y="20" width="222" height="17"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Already has an account? Login now!" id="WKR-aQ-ERU">
+                                    <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zvB-1k-HxI">
+                                <rect key="frame" x="213" y="45" width="74" height="32"/>
+                                <buttonCell key="cell" type="push" title="Login" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OlG-WF-8V9">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="loginClicked:" target="op8-ZP-CkU" id="0QO-VH-U4V"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3pD-af-zNp">
+                                <rect key="frame" x="160" y="256" width="180" height="23"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Create Your Account" id="okk-av-bsW">
+                                    <font key="font" metaFont="system" size="19"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="49C-Aw-nam">
+                                <rect key="frame" x="150" y="138" width="200" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="7dw-io-v5Q"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" id="TKV-vE-Lvq">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hbN-rA-JEq">
+                                <rect key="frame" x="381" y="141" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="ez8-T0-hi6"/>
+                                    <constraint firstAttribute="width" constant="80" id="fa8-J2-3vx"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="image-add-button" id="GW7-EG-OkH"/>
+                            </imageView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0ag-Ay-n8n">
+                                <rect key="frame" x="358" y="96" width="127" height="32"/>
+                                <buttonCell key="cell" type="push" title="Choose Image" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="I1l-OZ-rV5">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="hbN-rA-JEq" firstAttribute="centerY" secondItem="1XB-es-RGf" secondAttribute="centerY" id="5le-ie-SCL"/>
+                            <constraint firstItem="3pD-af-zNp" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="7Lu-m2-5Gu"/>
+                            <constraint firstItem="i1e-Vd-XN2" firstAttribute="top" secondItem="49C-Aw-nam" secondAttribute="bottom" constant="14" id="I6s-Yv-QLp"/>
+                            <constraint firstItem="i1e-Vd-XN2" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="M2Y-xJ-C1j"/>
+                            <constraint firstItem="b1H-pn-QTd" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="MXp-Iz-BQN"/>
+                            <constraint firstItem="b1H-pn-QTd" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="PhQ-4g-vDw"/>
+                            <constraint firstItem="b1H-pn-QTd" firstAttribute="top" secondItem="3pD-af-zNp" secondAttribute="bottom" constant="22" id="Qbv-QD-oZi"/>
+                            <constraint firstItem="1XB-es-RGf" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="US2-CM-Lzx"/>
+                            <constraint firstAttribute="trailing" secondItem="hbN-rA-JEq" secondAttribute="trailing" constant="39" id="YoC-gQ-eZn"/>
+                            <constraint firstItem="3pD-af-zNp" firstAttribute="top" secondItem="gRh-Q4-DbQ" secondAttribute="top" constant="20" id="ZA7-2R-bAP"/>
+                            <constraint firstItem="49C-Aw-nam" firstAttribute="top" secondItem="1XB-es-RGf" secondAttribute="bottom" constant="10" id="bfD-kS-HSU"/>
+                            <constraint firstItem="hbN-rA-JEq" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1XB-es-RGf" secondAttribute="trailing" constant="30" id="dEM-uc-k4B"/>
+                            <constraint firstItem="49C-Aw-nam" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="egF-Q8-vFI"/>
+                            <constraint firstItem="zvB-1k-HxI" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="f2l-J8-e0O"/>
+                            <constraint firstItem="1XB-es-RGf" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="fV3-VG-c9u"/>
+                            <constraint firstItem="zvB-1k-HxI" firstAttribute="top" secondItem="i1e-Vd-XN2" secondAttribute="bottom" constant="30" id="hd5-SM-hHl"/>
+                            <constraint firstItem="oyw-tJ-vZy" firstAttribute="top" secondItem="zvB-1k-HxI" secondAttribute="bottom" constant="15" id="nIN-gA-vWw"/>
+                            <constraint firstAttribute="bottom" secondItem="oyw-tJ-vZy" secondAttribute="bottom" constant="20" id="nXZ-FL-45p"/>
+                            <constraint firstItem="0ag-Ay-n8n" firstAttribute="centerX" secondItem="hbN-rA-JEq" secondAttribute="centerX" id="nzf-8w-j61"/>
+                            <constraint firstItem="oyw-tJ-vZy" firstAttribute="centerX" secondItem="gRh-Q4-DbQ" secondAttribute="centerX" id="trW-2W-ftX"/>
+                            <constraint firstItem="0ag-Ay-n8n" firstAttribute="centerY" secondItem="i1e-Vd-XN2" secondAttribute="centerY" id="uhI-HP-xli"/>
+                            <constraint firstItem="1XB-es-RGf" firstAttribute="top" secondItem="b1H-pn-QTd" secondAttribute="bottom" constant="20" id="ujG-pb-yWd"/>
+                            <constraint firstItem="1XB-es-RGf" firstAttribute="top" secondItem="b1H-pn-QTd" secondAttribute="bottom" constant="20" id="xZv-dv-LxV"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="loginButton" destination="zvB-1k-HxI" id="k4t-VJ-b5K"/>
+                    </connections>
                 </viewController>
                 <customObject id="Ufv-Op-Bsq" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="597" y="670"/>
+            <point key="canvasLocation" x="622" y="669.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="image-add-button" width="409.60000610351562" height="409.60000610351562"/>
+    </resources>
 </document>
