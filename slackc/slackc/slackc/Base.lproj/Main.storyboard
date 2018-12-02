@@ -723,7 +723,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="wf7-Tw-qob"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="you@example.com" drawsBackground="YES" id="hOI-1M-O39">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="t@t.com" placeholderString="you@example.com" drawsBackground="YES" id="hOI-1M-O39">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -737,7 +737,7 @@
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="Kvn-Pc-IVj"/>
                                 </constraints>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Password" drawsBackground="YES" id="KwY-hS-17S">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" title="t" placeholderString="Password" drawsBackground="YES" id="KwY-hS-17S">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -795,6 +795,101 @@
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="75" y="670"/>
+        </scene>
+        <!--Main Split View Controller-->
+        <scene sceneID="Fon-X8-auj">
+            <objects>
+                <splitViewController storyboardIdentifier="spiltVC" id="kz7-7x-nWR" customClass="MainSplitViewController" customModule="slackc" customModuleProvider="target" sceneMemberID="viewController">
+                    <splitViewItems>
+                        <splitViewItem id="9Za-Xf-eIq"/>
+                        <splitViewItem id="7nc-1t-fBS"/>
+                    </splitViewItems>
+                    <splitView key="splitView" identifier="spiltVC" dividerStyle="thin" vertical="YES" id="Y1B-1O-Tcd">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <connections>
+                            <outlet property="delegate" destination="kz7-7x-nWR" id="3Dk-cJ-Up9"/>
+                        </connections>
+                    </splitView>
+                    <connections>
+                        <outlet property="splitView" destination="Y1B-1O-Tcd" id="FbM-Et-sA1"/>
+                        <segue destination="xU2-cw-Wqf" kind="relationship" relationship="splitItems" id="JFa-EJ-ftM"/>
+                        <segue destination="ACK-nO-p2T" kind="relationship" relationship="splitItems" id="tsx-oI-bXM"/>
+                    </connections>
+                </splitViewController>
+                <customObject id="NXE-SS-7Gb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="60" y="1083"/>
+        </scene>
+        <!--Channels View Controller-->
+        <scene sceneID="uAp-Ff-wo7">
+            <objects>
+                <viewController id="xU2-cw-Wqf" customClass="ChannelsViewController" customModule="slackc" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="3Do-CK-mM9">
+                        <rect key="frame" x="0.0" y="0.0" width="152" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="rJ1-qf-kaY">
+                                <rect key="frame" x="8" y="161" width="136" height="24"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" alignment="center" title="Name" id="Diw-kW-Zy6">
+                                    <font key="font" metaFont="system" size="20"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="46n-MW-HIS">
+                                <rect key="frame" x="34" y="123" width="85" height="32"/>
+                                <buttonCell key="cell" type="push" title="LogOut" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="jyl-hG-Xt9">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="logoutButtonClicked:" target="xU2-cw-Wqf" id="QZx-Yc-tB8"/>
+                                </connections>
+                            </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qyH-6u-rZW">
+                                <rect key="frame" x="36" y="200" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="ivS-kR-OpD"/>
+                                    <constraint firstAttribute="height" constant="80" id="zUj-TX-Ij2"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="9X3-Gp-4nN"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="qyH-6u-rZW" firstAttribute="top" secondItem="3Do-CK-mM9" secondAttribute="top" constant="20" id="0i5-bG-vTO"/>
+                            <constraint firstItem="rJ1-qf-kaY" firstAttribute="top" secondItem="qyH-6u-rZW" secondAttribute="bottom" constant="15" id="5u9-hc-r4m"/>
+                            <constraint firstItem="qyH-6u-rZW" firstAttribute="centerX" secondItem="3Do-CK-mM9" secondAttribute="centerX" id="7Ar-Hs-s9Y"/>
+                            <constraint firstItem="46n-MW-HIS" firstAttribute="centerX" secondItem="3Do-CK-mM9" secondAttribute="centerX" id="8aI-wU-r2G"/>
+                            <constraint firstItem="46n-MW-HIS" firstAttribute="top" secondItem="rJ1-qf-kaY" secondAttribute="bottom" constant="10" id="8pb-DC-eqa"/>
+                            <constraint firstItem="rJ1-qf-kaY" firstAttribute="leading" secondItem="3Do-CK-mM9" secondAttribute="leading" constant="10" id="azd-Dd-xSb"/>
+                            <constraint firstItem="qyH-6u-rZW" firstAttribute="centerX" secondItem="3Do-CK-mM9" secondAttribute="centerX" id="hzj-cj-18y"/>
+                            <constraint firstAttribute="trailing" secondItem="rJ1-qf-kaY" secondAttribute="trailing" constant="10" id="iNQ-MY-Def"/>
+                            <constraint firstItem="qyH-6u-rZW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="3Do-CK-mM9" secondAttribute="leading" constant="36" id="ieg-yD-V4b"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="qyH-6u-rZW" secondAttribute="trailing" constant="36" id="z3x-eh-a1m"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="nameLabelSpilt" destination="rJ1-qf-kaY" id="bGz-3V-6yh"/>
+                        <outlet property="profileImageViewSplit" destination="qyH-6u-rZW" id="bbg-pZ-UT8"/>
+                    </connections>
+                </viewController>
+                <customObject id="PCm-dD-7jr" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="581" y="897"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="awK-S4-t43">
+            <objects>
+                <viewController id="ACK-nO-p2T" sceneMemberID="viewController">
+                    <view key="view" id="NE3-cJ-4JN">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </view>
+                </viewController>
+                <customObject id="eBD-TI-l8K" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="730" y="1269"/>
         </scene>
         <!--Create Account View Controller-->
         <scene sceneID="dkr-OB-Jch">

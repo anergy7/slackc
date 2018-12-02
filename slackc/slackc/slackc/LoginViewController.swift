@@ -24,11 +24,13 @@ class LoginViewController: NSViewController {
         PFUser.logInWithUsername(inBackground: emailTextFieldLoginVC.stringValue, password: passwordTextFieldLoginVC.stringValue) { (user: PFUser?, error: Error?) in
             if error == nil {
                 print("You login")
+                if let mainWC = self.view.window?.windowController as? MainWindowController {
+                    mainWC.moveToChat()
+                }
             } else {
                 print("login failed")
             }
         }
-        
     }
     
     // 判断是否为email地址
