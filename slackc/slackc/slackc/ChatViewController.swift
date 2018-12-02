@@ -31,7 +31,8 @@ class ChatViewController: NSViewController {
     {
         self.channel = channel
         if let title = channel["title"] as? String {
-            topicLabel.stringValue = title
+            topicLabel.stringValue = "\(title)"
+            messageBoxTextField.placeholderString = "Message #\(title)"
         }
         if let des = channel["description"] as? String {
             channelDescription.stringValue = des
