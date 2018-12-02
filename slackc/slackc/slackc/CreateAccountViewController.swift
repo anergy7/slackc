@@ -17,6 +17,8 @@ class CreateAccountViewController: NSViewController {
     @IBOutlet weak var PasswordTextField: NSSecureTextField!
     @IBOutlet weak var profilePicImageView: NSImageView!
     
+    var profilePicFile : PFFileObject?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
@@ -43,15 +45,37 @@ class CreateAccountViewController: NSViewController {
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = false
         openPanel.canCreateDirectories = true
+        openPanel.canChooseFiles = true
+        openPanel.allowedFileTypes = ["jpg","png"]
+        openPanel.begin { (result) in
+            if result == NSApplication.ModalResponse.OK {
+                if let imageURL =  openPanel.urls.first {
+                    if let image = NSImage(contentsOf: imageURL) {
+                        self.profilePicImageView.image = image
+                        let imageData = self.jpegDataFrom(image: image)
+                        self.profilePicFile = PFFileObject(data: imageData)
+                        self.profilePicFile?.saveInBackground()
+                    }
+                }
+            }
+        }
     }
     
+    func jpegDataFrom(image:NSImage) -> Data {
+        let cgImage = image.cgImage(forProposedRect: nil, context: nil, hints: nil)!
+        let bitmapRep = NSBitmapImageRep(cgImage: cgImage)
+        let jpegData = bitmapRep.representation(using: NSBitmapImageRep.FileType.jpeg, properties: [:])!
+        return jpegData
+    }
     
     @IBAction func registerClickedCreate(_ sender: Any) {
+        PFUser.logOut()
         let user = PFUser()
         user.email = emailTextFieldCreate.stringValue
         user.password = PasswordTextField.stringValue
         user.username = emailTextFieldCreate.stringValue
         user["name"] = nameTextFieldCreate.stringValue
+        user["profileImage"] = profilePicFile
         user.signUpInBackground {
             (success:Bool, error: Error?) in
             if success {
