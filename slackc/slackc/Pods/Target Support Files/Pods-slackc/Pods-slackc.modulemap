@@ -1,6 +1,0 @@
-framework module Pods_slackc {
-  umbrella header "Pods-slackc-umbrella.h"
-
-  export *
-  module * { export * }
-}
