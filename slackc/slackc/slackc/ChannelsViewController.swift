@@ -18,6 +18,13 @@ class ChannelsViewController: NSViewController {
         // Do view setup here.
     }
 
+    @IBAction func addChannelClicked(_ sender: Any) {
+        
+        let addChannelWC = storyboard?.instantiateController(withIdentifier: "addChannelVC") as? NSWindowController
+        
+        addChannelWC?.showWindow(nil)
+        
+    }
     override func viewDidAppear() {
         if let user = PFUser.current() {
             if let name = user["name"] as? String {
