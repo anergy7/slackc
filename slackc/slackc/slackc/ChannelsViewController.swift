@@ -9,13 +9,19 @@
 import Cocoa
 import Parse
 
-class ChannelsViewController: NSViewController {
+class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableViewDelegate {
 
+    @IBOutlet weak var channelTable: NSTableView!
     @IBOutlet weak var profileImageViewSplit: NSImageView!
     @IBOutlet weak var nameLabelSpilt: NSTextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
+        channelTable.dataSource = self
+        channelTable.delegate = self
+        
     }
 
     @IBAction func addChannelClicked(_ sender: Any) {
@@ -51,6 +57,19 @@ class ChannelsViewController: NSViewController {
         if let mainWC = view.window?.windowController as? MainWindowController {
             mainWC.moveToLogin()
         }
+    }
+    
+    
+    func numberOfRows(in tableView: NSTableView) -> Int {
+        return 40
+    }
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "channelCell"), owner: nil) as? NSTableCellView {
+            
+            cell.textField?.stringValue = "hello"
+            return cell
+        }
+        return nil
     }
 
 }
