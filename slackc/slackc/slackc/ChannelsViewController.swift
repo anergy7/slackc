@@ -72,7 +72,7 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "channelCell"), owner: nil) as? NSTableCellView {
             
             if let title = channel["title"] as?  String {
-                cell.textField?.stringValue = title
+                cell.textField?.stringValue = "#\(title)"
                 return cell
             }
         }
@@ -81,6 +81,7 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
     
     func getChannels(){
         let query = PFQuery(className: "Channel")
+        query.order(byAscending: "title")
         query.findObjectsInBackground { (channels: [PFObject]?, error: Error?) in
 //            print(channels)
             if channels != nil {

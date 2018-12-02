@@ -13,6 +13,7 @@ class LoginViewController: NSViewController {
 
     @IBOutlet weak var passwordTextFieldLoginVC: NSSecureTextField!
     @IBOutlet weak var emailTextFieldLoginVC: NSTextField!
+    @IBOutlet weak var loginButtonLoginVC: NSButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,13 +22,17 @@ class LoginViewController: NSViewController {
 
     @IBAction func loginClickedLoginVC(_ sender: Any) {
         
+        loginButtonLoginVC.isEnabled = false
         PFUser.logInWithUsername(inBackground: emailTextFieldLoginVC.stringValue, password: passwordTextFieldLoginVC.stringValue) { (user: PFUser?, error: Error?) in
             if error == nil {
                 print("You login")
                 if let mainWC = self.view.window?.windowController as? MainWindowController {
+                    self.loginButtonLoginVC.isEnabled = true
                     mainWC.moveToChat()
+                    
                 }
             } else {
+                self.loginButtonLoginVC.isEnabled = true
                 print("login failed")
             }
         }
