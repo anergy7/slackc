@@ -10,6 +10,7 @@ import Cocoa
 
 class LoginViewController: NSViewController {
 
+    @IBOutlet weak var emailTextFieldLoginVC: NSTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 

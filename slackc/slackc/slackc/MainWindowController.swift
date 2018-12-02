@@ -20,6 +20,7 @@ class MainWindowController: NSWindowController {
         // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
         
         loginVC = contentViewController as? LoginViewController
+        loginVC?.emailTextFieldLoginVC.becomeFirstResponder()
     }
     
     func moveToCreateAccout() {
@@ -28,12 +29,16 @@ class MainWindowController: NSWindowController {
             createAccountVC = storyboard?.instantiateController(withIdentifier: "createAccountVC") as? CreateAccountViewController
             }
         window?.contentView = createAccountVC?.view
+        createAccountVC?.nameTextFieldCreate.becomeFirstResponder()
+
     }
     
     func moveToLogin() {
 //        if let loginVC = storyboard?.instantiateController(withIdentifier: "loginVC") as? LoginViewController {
 //        }
         window?.contentView = loginVC?.view
+        loginVC?.emailTextFieldLoginVC.becomeFirstResponder()
+
 
     }
 }
