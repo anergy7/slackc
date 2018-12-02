@@ -17,4 +17,11 @@ class MainSplitViewController: NSSplitViewController {
                 
     }
     
+    override func viewDidAppear() {
+        if let channelsVC = splitViewItems[0].viewController as? ChannelsViewController {
+            if let chatVC = splitViewItems[1].viewController as? ChatViewController {
+                channelsVC.chatVC = chatVC
+            }
+        }
+    }
 }

@@ -17,6 +17,7 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
     
     var addChannelWC : NSWindowController?
     var channels : [PFObject] = []
+    var chatVC : ChatViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,17 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
     func numberOfRows(in tableView: NSTableView) -> Int {
         return channels.count
     }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        
+        if channelTable.selectedRow < 0 {
+            
+        } else {
+            let channel  = channels[channelTable.selectedRow]
+            chatVC?.updateChannel(channel: channel)
+        }
+    }
+    
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
         let channel = channels[row]

@@ -9,7 +9,7 @@
 import Cocoa
 import Parse
 
-class LoginViewController: NSViewController {
+class LoginViewController: NSViewController,NSTableViewDataSource, NSTableViewDelegate {
 
     @IBOutlet weak var passwordTextFieldLoginVC: NSSecureTextField!
     @IBOutlet weak var emailTextFieldLoginVC: NSTextField!
@@ -59,6 +59,7 @@ class LoginViewController: NSViewController {
             mainWC.moveToCreateAccout()
         }
     }
+    
     
 }
 
