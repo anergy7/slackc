@@ -15,18 +15,20 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
     @IBOutlet weak var profileImageViewSplit: NSImageView!
     @IBOutlet weak var nameLabelSpilt: NSTextField!
     
+    var addChannelWC : NSWindowController?
+    var channels : [PFObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
         channelTable.dataSource = self
         channelTable.delegate = self
-        
+        getChannels()
     }
 
     @IBAction func addChannelClicked(_ sender: Any) {
         
-        let addChannelWC = storyboard?.instantiateController(withIdentifier: "addChannelVC") as? NSWindowController
+        addChannelWC = storyboard?.instantiateController(withIdentifier: "addChannelVC") as? NSWindowController
         
         addChannelWC?.showWindow(nil)
         
@@ -61,15 +63,33 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
     
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return 40
+        return channels.count
     }
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        
+        let channel = channels[row]
+        
         if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "channelCell"), owner: nil) as? NSTableCellView {
             
-            cell.textField?.stringValue = "hello"
-            return cell
+            if let title = channel["title"] as?  String {
+                cell.textField?.stringValue = title
+                return cell
+            }
         }
         return nil
+    }
+    
+    func getChannels(){
+        let query = PFQuery(className: "Channel")
+        query.findObjectsInBackground { (channels: [PFObject]?, error: Error?) in
+//            print(channels)
+            if channels != nil {
+                self.channels = channels!
+                self.channelTable.reloadData()
+            }
+            
+        }
+        
     }
 
 }
