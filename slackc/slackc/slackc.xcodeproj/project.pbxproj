@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		80015DA221B39718008DDDA2 /* MainSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80015DA121B39718008DDDA2 /* MainSplitViewController.swift */; };
 		80015DA421B3A10F008DDDA2 /* ChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80015DA321B3A10F008DDDA2 /* ChannelsViewController.swift */; };
+		80015DA721B3B02A008DDDA2 /* AddChannelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80015DA521B3B02A008DDDA2 /* AddChannelViewController.swift */; };
 		806D34A721B2F1F5003EDD67 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D34A621B2F1F5003EDD67 /* AppDelegate.swift */; };
 		806D34A921B2F1F5003EDD67 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D34A821B2F1F5003EDD67 /* LoginViewController.swift */; };
 		806D34AB21B2F1F6003EDD67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 806D34AA21B2F1F6003EDD67 /* Assets.xcassets */; };
@@ -22,6 +23,7 @@
 		74C1C9DDABECA8AB7BD0CC1D /* Pods_slackc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_slackc.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80015DA121B39718008DDDA2 /* MainSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSplitViewController.swift; sourceTree = "<group>"; };
 		80015DA321B3A10F008DDDA2 /* ChannelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelsViewController.swift; sourceTree = "<group>"; };
+		80015DA521B3B02A008DDDA2 /* AddChannelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddChannelViewController.swift; sourceTree = "<group>"; };
 		806D34A321B2F1F5003EDD67 /* slackc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = slackc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		806D34A621B2F1F5003EDD67 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		806D34A821B2F1F5003EDD67 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				80015DA321B3A10F008DDDA2 /* ChannelsViewController.swift */,
 				806D34AA21B2F1F6003EDD67 /* Assets.xcassets */,
 				806D34AC21B2F1F6003EDD67 /* Main.storyboard */,
+				80015DA521B3B02A008DDDA2 /* AddChannelViewController.swift */,
 				806D34AF21B2F1F6003EDD67 /* Info.plist */,
 				806D34B021B2F1F6003EDD67 /* slackc.entitlements */,
 			);
@@ -217,6 +220,7 @@
 				806D34B921B2F584003EDD67 /* CreateAccountViewController.swift in Sources */,
 				806D34A921B2F1F5003EDD67 /* LoginViewController.swift in Sources */,
 				806D34A721B2F1F5003EDD67 /* AppDelegate.swift in Sources */,
+				80015DA721B3B02A008DDDA2 /* AddChannelViewController.swift in Sources */,
 				806D34B721B2F4CD003EDD67 /* MainWindowController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
