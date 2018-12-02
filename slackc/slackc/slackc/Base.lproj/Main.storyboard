@@ -749,6 +749,9 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="loginClickedLoginVC:" target="XfG-lQ-9wD" id="kNb-q4-5hb"/>
+                                </connections>
                             </button>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qyB-P5-Ab8">
                                 <rect key="frame" x="125" y="51" width="231" height="17"/>
@@ -786,6 +789,7 @@
                     </view>
                     <connections>
                         <outlet property="emailTextFieldLoginVC" destination="MeX-kp-Fug" id="phs-CP-Chq"/>
+                        <outlet property="passwordTextFieldLoginVC" destination="D9o-xB-w7L" id="peE-Zk-9Hx"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

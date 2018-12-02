@@ -7,14 +7,36 @@
 //
 
 import Cocoa
+import Parse
 
 class LoginViewController: NSViewController {
 
+    @IBOutlet weak var passwordTextFieldLoginVC: NSSecureTextField!
     @IBOutlet weak var emailTextFieldLoginVC: NSTextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+
+    @IBAction func loginClickedLoginVC(_ sender: Any) {
+        
+        PFUser.logInWithUsername(inBackground: emailTextFieldLoginVC.stringValue, password: passwordTextFieldLoginVC.stringValue) { (user: PFUser?, error: Error?) in
+            if error == nil {
+                print("You login")
+            } else {
+                print("login failed")
+            }
+        }
+        
+    }
+    
+    // 判断是否为email地址
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
     }
 
     override var representedObject: Any? {
