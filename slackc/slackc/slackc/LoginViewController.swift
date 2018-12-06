@@ -11,9 +11,11 @@ import Parse
 
 class LoginViewController: NSViewController,NSTableViewDataSource, NSTableViewDelegate {
 
+    @IBOutlet weak var registerButton: NSButton!
     @IBOutlet weak var passwordTextFieldLoginVC: NSSecureTextField!
     @IBOutlet weak var emailTextFieldLoginVC: NSTextField!
     @IBOutlet weak var loginButtonLoginVC: NSButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,22 +23,40 @@ class LoginViewController: NSViewController,NSTableViewDataSource, NSTableViewDe
     }
 
     @IBAction func loginClickedLoginVC(_ sender: Any) {
-        
+        registerButton.isEnabled = false
         loginButtonLoginVC.isEnabled = false
         PFUser.logInWithUsername(inBackground: emailTextFieldLoginVC.stringValue, password: passwordTextFieldLoginVC.stringValue) { (user: PFUser?, error: Error?) in
             if error == nil {
                 print("You login")
                 if let mainWC = self.view.window?.windowController as? MainWindowController {
                     self.loginButtonLoginVC.isEnabled = true
+                    self.registerButton.isEnabled = true
+
                     mainWC.moveToChat()
                     
                 }
             } else {
                 self.loginButtonLoginVC.isEnabled = true
+                self.registerButton.isEnabled = true
+                let answer = self.dialogOKCancel(question: "登陆失败", text: "请重试")
+                
                 print("login failed")
             }
         }
     }
+    
+    // 生成带OKCancel的Dialogue
+    func dialogOKCancel(question: String, text: String) -> Bool {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+//        alert.addButton(withTitle: "Cancel")
+        return alert.runModal() == .alertFirstButtonReturn
+    }
+
+    
     
     // 判断是否为email地址
     func isValidEmail(testStr:String) -> Bool {

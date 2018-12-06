@@ -18,6 +18,7 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
     var addChannelWC : NSWindowController?
     var channels : [PFObject] = []
     var chatVC : ChatViewController?
+    var addChannleViewController : NSViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,9 +32,11 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
         
         addChannelWC = storyboard?.instantiateController(withIdentifier: "addChannelVC") as? NSWindowController
         
+//        addChannelWC?.contentViewController
         addChannelWC?.showWindow(nil)
-        
+        getChannels()
     }
+    
     override func viewDidAppear() {
         if let user = PFUser.current() {
             if let name = user["name"] as? String {
@@ -53,6 +56,7 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
             }
             
         }
+        getChannels()
     }
     
     @IBAction func logoutButtonClicked(_ sender: Any) {
@@ -99,6 +103,7 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
             if channels != nil {
                 self.channels = channels!
                 self.channelTable.reloadData()
+                print("successfully got channels")
             }
             
         }

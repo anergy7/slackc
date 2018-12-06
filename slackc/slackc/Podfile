@@ -9,4 +9,6 @@ target 'slackc' do
 
   # Pods for slackc
   pod 'Parse'
+  pod "PromiseKit", "~> 6.0"
+
 end
