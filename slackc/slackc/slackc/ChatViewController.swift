@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import PromiseKit
 import Parse
 
 class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDelegate {
@@ -66,7 +67,74 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         }
     }
     
+    func getChatsAsync(channel: PFObject) -> Guarantee<[PFObject]> {
+        return Guarantee { seal in
+            if channel != nil {
+                let query = PFQuery(className: "Chat")
+                query.whereKey("channel", equalTo: channel)
+                query.addAscendingOrder("createdAt")
+                query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
+                    if error == nil {
+                        seal(chats ?? [])
+//                        if chats != nil {
+////                            self.chats = chats!
+//                            seal.fulfill(chats!)
+//                        } else {
+//                            print("当前无数据")
+//                        }
+                    } else {
+                        print("当前无数据")
+                    }
+                }
+            }
+        }
+    }
     
+    func updateChatsAsync(channel: PFObject) {
+        firstly {
+            after(seconds: 1)
+            }
+            .then {
+                self.getChatsAsync(channel: channel)
+            }.done { (onlineChats) in
+                self.chats = onlineChats
+                if let title = channel["title"] as? String {
+                    self.topicLabel.stringValue = "#\(title)"
+                    self.messageBoxTextField.placeholderString = "Message #\(title)"
+                }
+                if let des = channel["description"] as? String {
+                    self.channelDescription.stringValue = des
+                }
+                self.chatTableView.reloadData()
+                print("reloaded")
+
+            }.catch { (error) in
+//                print(error)
+        }
+    }
+
+
+//    func getChatsAsync() -> Promise<[PFObject]> {
+//        return Promise<Any> { fufill, reject in
+//            if channel != nil {
+//                let query = PFQuery(className: "Chat")
+//                query.whereKey("channel", equalTo: channel!)
+//                query.addAscendingOrder("createdAt")
+//                query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
+//                    if error == nil {
+//                        if chats != nil {
+//                            print("successfully got the data from \(self.channel)")
+//                            print(chats)
+//                            fufill(chats)
+//                        }
+//                    } else {
+//                        reject(error)
+//                    }
+//        }
+//                    }
+//        }
+//    }
+//
     
     func updateChannel(channel: PFObject)
     {

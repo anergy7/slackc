@@ -77,7 +77,8 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
             
         } else {
             let channel  = channels[channelTable.selectedRow]
-            chatVC?.updateChannel(channel: channel)
+//            chatVC?.updateChannel(channel: channel)
+            chatVC?.updateChatsAsync(channel: channel)
         }
     }
     
