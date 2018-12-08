@@ -17,6 +17,7 @@
 		806D34AE21B2F1F6003EDD67 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 806D34AC21B2F1F6003EDD67 /* Main.storyboard */; };
 		806D34B721B2F4CD003EDD67 /* MainWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D34B621B2F4CD003EDD67 /* MainWindowController.swift */; };
 		806D34B921B2F584003EDD67 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806D34B821B2F584003EDD67 /* CreateAccountViewController.swift */; };
+		80B5F79121BBD6E100627B47 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5F79021BBD6E100627B47 /* ChatCell.swift */; };
 		E5112B7FF1AF1D943C5CC794 /* Pods_slackc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74C1C9DDABECA8AB7BD0CC1D /* Pods_slackc.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		806D34B021B2F1F6003EDD67 /* slackc.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = slackc.entitlements; sourceTree = "<group>"; };
 		806D34B621B2F4CD003EDD67 /* MainWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWindowController.swift; sourceTree = "<group>"; };
 		806D34B821B2F584003EDD67 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		80B5F79021BBD6E100627B47 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		8C5EEBD64C19A23A5BB19F47 /* Pods-slackc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-slackc.release.xcconfig"; path = "Pods/Target Support Files/Pods-slackc/Pods-slackc.release.xcconfig"; sourceTree = "<group>"; };
 		AB7869DDD04365E38E9DA7A7 /* Pods-slackc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-slackc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-slackc/Pods-slackc.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +84,7 @@
 				806D34AA21B2F1F6003EDD67 /* Assets.xcassets */,
 				80015DA921B3CB32008DDDA2 /* ChatViewController.swift */,
 				806D34AC21B2F1F6003EDD67 /* Main.storyboard */,
+				80B5F79021BBD6E100627B47 /* ChatCell.swift */,
 				806D34AF21B2F1F6003EDD67 /* Info.plist */,
 				806D34B021B2F1F6003EDD67 /* slackc.entitlements */,
 			);
@@ -222,6 +225,7 @@
 			files = (
 				80015DA421B3A10F008DDDA2 /* ChannelsViewController.swift in Sources */,
 				80015DA221B39718008DDDA2 /* MainSplitViewController.swift in Sources */,
+				80B5F79121BBD6E100627B47 /* ChatCell.swift in Sources */,
 				80015DAA21B3CB32008DDDA2 /* ChatViewController.swift in Sources */,
 				806D34B921B2F584003EDD67 /* CreateAccountViewController.swift in Sources */,
 				806D34A921B2F1F5003EDD67 /* LoginViewController.swift in Sources */,

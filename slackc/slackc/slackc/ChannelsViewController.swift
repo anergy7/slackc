@@ -78,7 +78,7 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
         } else {
             let channel  = channels[channelTable.selectedRow]
 //            chatVC?.updateChannel(channel: channel)
-            chatVC?.updateChatsAsync(channel: channel)
+            chatVC?.loadChatsAsync(channel: channel)
         }
     }
     
@@ -97,6 +97,9 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
     }
     
     func getChannels(){
+        
+        
+        
         let query = PFQuery(className: "Channel")
         query.order(byAscending: "title")
         query.findObjectsInBackground { (channels: [PFObject]?, error: Error?) in

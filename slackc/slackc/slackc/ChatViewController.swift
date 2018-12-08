@@ -12,6 +12,7 @@ import Parse
 
 class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDelegate {
 
+    var numberOfColumn : Int = 1
     var channel : PFObject?
     var chats: [PFObject] = []
     
@@ -22,7 +23,11 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         chatTableView.dataSource = self
         chatTableView.delegate = self
     }
-    
+    @IBOutlet weak var messageBoxTextField: NSTextField!
+    @IBOutlet weak var chatTableView: NSTableView!
+    @IBOutlet weak var channelDescription: NSTextField!
+    @IBOutlet weak var topicLabel: NSTextField!
+
     @IBAction func sendClicked(_ sender: Any) {
         
         if messageBoxTextField.stringValue == "" {
@@ -36,27 +41,25 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
             if success {
                 print("it works in \(String(describing: self.channel))")
                 self.messageBoxTextField.stringValue = ""
-                
+                self.getChats()
             } else {
                 print("cannot send out")
             }
         }
     }
     
-    @IBOutlet weak var messageBoxTextField: NSTextFieldCell!
-    @IBOutlet weak var chatTableView: NSTableView!
-    @IBOutlet weak var channelDescription: NSTextField!
-    @IBOutlet weak var topicLabel: NSTextField!
-
+//
     func getChats() {
         if channel != nil {
             let query = PFQuery(className: "Chat")
             query.whereKey("channel", equalTo: channel!)
+            query.includeKey("user")
             query.addAscendingOrder("createdAt")
             query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
                 if error == nil {
                     if chats != nil {
                         self.chats = chats!
+                        self.chatTableView.reloadData()
                     }
                     print("successfully got the data from \(self.channel)")
                     print(chats)
@@ -69,35 +72,52 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
     
     func getChatsAsync(channel: PFObject) -> Promise<[PFObject]> {
         return Promise { seal in
-            if channel != nil {
-                let query = PFQuery(className: "Chat")
-                query.whereKey("channel", equalTo: channel)
-                query.addAscendingOrder("createdAt")
-                query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
-                    if error == nil {
-                        seal.fulfill(chats!)
-//                        if chats != nil {
-////                            self.chats = chats!
-//                            seal.fulfill(chats!)
-//                        } else {
-//                            print("当前无数据")
-//                        }
-                    } else {
-                        seal.reject(error!)
-                        print("当前无数据")
-                    }
+            self.channel = channel
+            let query = PFQuery(className: "Chat")
+            query.includeKey("user")
+            query.whereKey("channel", equalTo: channel)
+            query.addAscendingOrder("createdAt")
+            query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
+                if error == nil {
+                    self.chats = chats!
+                    self.chatTableView.reloadData()
+                    seal.fulfill(chats!)
+                } else {
+                    seal.reject(error!)
+                    print("当前无数据")
                 }
             }
         }
     }
     
+    func loadChatsAsync(channel: PFObject) {
+        firstly {
+            return self.getChatsAsync(channel: channel)
+            }.done { (onlineChats) in
+                self.chats = onlineChats
+                if let title = channel["title"] as? String {
+                    self.topicLabel.stringValue = "#\(title)"
+                    self.messageBoxTextField.placeholderString = "Message #\(title)"
+                }
+                if let des = channel["description"] as? String {
+                    self.channelDescription.stringValue = des
+                }
+                self.chatTableView.reloadData()
+                print("reloaded")
+            }.catch { (error) in
+                print("dddddddd\(error)")
+        }
+    }
+
+    
     func updateChatsAsync(channel: PFObject) {
         firstly {
-            print("倒计时3秒")
-            return after(seconds: 3)
+            self.channel = channel
+            print("倒计时1秒")
+            return after(seconds: 1)
             }
             .then {
-                self.getChatsAsync(channel: channel)
+                return self.getChatsAsync(channel: channel)
             }.done { (onlineChats) in
                 self.chats = onlineChats
                 if let title = channel["title"] as? String {
@@ -136,7 +156,7 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
 //        }
 //    }
 //
-    
+//
     func updateChannel(channel: PFObject)
     {
         self.channel = channel
@@ -158,14 +178,34 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
     
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         
-        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "chatCell"), owner: nil) as? NSTableCellView  {
+        if let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "chatCell"), owner: nil) as? ChatCell  {
             let chat = chats[row]
             if let message = chat["message"] as? String {
-                cell.textField?.stringValue = message
+                cell.messageTextLabel.stringValue = message
+                cell.messageTextLabel.widthAnchor.constraint(equalTo: tableView.widthAnchor, multiplier: 0.4)
+                cell.messageTextLabel.sizeToFit()
             }
+            
+            if let user = chat["user"] as? PFUser {
+                if let name = user["name"] as? String {
+                    cell.userNameLabel.stringValue = name
+                }
+                if let imageFile = user["profileImage"] as? PFFileObject {
+                    imageFile.getDataInBackground { (data: Data?,error: Error?) in
+                        if error == nil {
+                            if data != nil {
+                                let image = NSImage(data: data!)
+                                cell.profileImageView.image = image
+                            }
+                        }
+                    }
+                }
+            }
+            
             return cell
         }
         return nil
     }
+
     
 }
