@@ -38,7 +38,6 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
                 
             } else {
                 print("cannot send out")
-
             }
         }
     }
@@ -66,6 +65,8 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
             }
         }
     }
+    
+    
     
     func updateChannel(channel: PFObject)
     {

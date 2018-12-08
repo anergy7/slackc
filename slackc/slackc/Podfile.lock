@@ -4,19 +4,29 @@ PODS:
     - Parse/Core (= 1.17.2)
   - Parse/Core (1.17.2):
     - Bolts/Tasks (~> 1.9)
+  - PromiseKit (6.6.0):
+    - PromiseKit/CorePromise (= 6.6.0)
+    - PromiseKit/Foundation (= 6.6.0)
+    - PromiseKit/UIKit (= 6.6.0)
+  - PromiseKit/CorePromise (6.6.0)
+  - PromiseKit/Foundation (6.6.0):
+    - PromiseKit/CorePromise
 
 DEPENDENCIES:
   - Parse
+  - PromiseKit (~> 6.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Bolts
     - Parse
+    - PromiseKit
 
 SPEC CHECKSUMS:
   Bolts: ac6567323eac61e203f6a9763667d0f711be34c8
   Parse: 3b31a3dd1777b07ee7f0caee32fafbff544483a5
+  PromiseKit: c2983ba0f1eca9efc3412cc7032ce8de2fd59d06
 
-PODFILE CHECKSUM: 566c5f6585edd37f998217b4d1d9df144b585682
+PODFILE CHECKSUM: f5b3b29257fe41117937bb8a6da8ad7cab715cd5
 
 COCOAPODS: 1.6.0.beta.2
