@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "slackc/CreateAccountViewController.swift"
-            timestampString = "565544055.990168"
+            timestampString = "565975864.841229"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
             landmarkName = "loginClicked(_:)"
             landmarkType = "7">
          </BreakpointContent>

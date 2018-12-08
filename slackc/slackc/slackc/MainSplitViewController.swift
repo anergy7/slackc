@@ -23,5 +23,11 @@ class MainSplitViewController: NSSplitViewController {
                 channelsVC.chatVC = chatVC
             }
         }
+    
+        if var frame = view.window?.frame {
+            frame.size = CGSize(width: 1000 , height: 600)
+            view.window?.setFrame(frame, display: true, animate: true)
+        }
     }
+
 }

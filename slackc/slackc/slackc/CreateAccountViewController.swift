@@ -25,6 +25,14 @@ class CreateAccountViewController: NSViewController {
 //        loginButton.isHidden = true
     }
     
+    override func viewDidAppear() {
+        if var frame = view.window?.frame {
+            frame.size = CGSize(width: 480, height: 270)
+            view.window?.setFrame(frame, display: true, animate: true)
+        }
+    }
+
+    
     override var representedObject: Any? {
         didSet {
             // Update the view, if already loaded.

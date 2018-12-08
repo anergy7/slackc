@@ -20,8 +20,24 @@ class LoginViewController: NSViewController,NSTableViewDataSource, NSTableViewDe
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(50)) {
+            if var frame = self.view.window?.frame {
+                frame.size = CGSize(width: 480, height: 270)
+                self.view.window?.setFrame(frame, display: true, animate: true)
+            }
+            
+        }
+
     }
 
+    override func viewDidAppear() {
+        if var frame = view.window?.frame {
+            frame.size = CGSize(width: 480, height: 270)
+            view.window?.setFrame(frame, display: true, animate: true)
+        }
+    }
+
+    
     @IBAction func loginClickedLoginVC(_ sender: Any) {
         registerButton.isEnabled = false
         loginButtonLoginVC.isEnabled = false
