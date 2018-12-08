@@ -35,7 +35,6 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         if messageBoxTextField.stringValue == "" {
             return
         }
-        self.messageBoxTextField.stringValue = ""
         let chat = PFObject(className: "Chat")
         chat["message"] = messageBoxTextField.stringValue
         chat["user"] = PFUser.current()
@@ -43,6 +42,7 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         chat.saveInBackground { (success: Bool, error: Error?) in
             if success {
                 print("it works in \(String(describing: self.channel))")
+                self.messageBoxTextField.stringValue = ""
 //                self.updateChatsAsync(channel: self.channel!)
                 self.getChats()
             } else {
@@ -61,12 +61,13 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
             query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
                 if error == nil {
                     if chats != nil {
+                        if chats?.count != self.chats.count{
                         self.chats = chats!
                         self.chatTableView.reloadData()
                         self.chatTableView.scrollRowToVisible(self.chats.count - 1)
+                        }
+                        
                     }
-                    print("successfully got the data from \(self.channel)")
-                    print(chats)
                 } else {
                     print("got some problems")
                 }
@@ -74,43 +75,43 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         }
     }
     
-    func getChatsAsync(channel: PFObject) -> Promise<[PFObject]> {
-        return Promise { seal in
-            self.channel = channel
-            let query = PFQuery(className: "Chat")
-            query.includeKey("user")
-            query.whereKey("channel", equalTo: channel)
-            query.addAscendingOrder("createdAt")
-            query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
-                if error == nil {
-                    self.chats = chats!
-                    seal.fulfill(chats!)
-                } else {
-                    seal.reject(error!)
-                    print("当前无数据")
-                }
-            }
-        }
-    }
-    
-    func loadChatsAsync(channel: PFObject) {
-        firstly {
-            return self.getChatsAsync(channel: channel)
-            }.done { (onlineChats) in
-                self.chats = onlineChats
-                if let title = channel["title"] as? String {
-                    self.topicLabel.stringValue = "#\(title)"
-                    self.messageBoxTextField.placeholderString = "Message #\(title)"
-                }
-                if let des = channel["description"] as? String {
-                    self.channelDescription.stringValue = des
-                }
-                self.chatTableView.reloadData()
-                print("reloaded")
-            }.catch { (error) in
-                print("dddddddd\(error)")
-        }
-    }
+//    func getChatsAsync(channel: PFObject) -> Promise<[PFObject]> {
+//        return Promise { seal in
+//            self.channel = channel
+//            let query = PFQuery(className: "Chat")
+//            query.includeKey("user")
+//            query.whereKey("channel", equalTo: channel)
+//            query.addAscendingOrder("createdAt")
+//            query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
+//                if error == nil {
+//                    self.chats = chats!
+//                    seal.fulfill(chats!)
+//                } else {
+//                    seal.reject(error!)
+//                    print("当前无数据")
+//                }
+//            }
+//        }
+//    }
+//
+//    func loadChatsAsync(channel: PFObject) {
+//        firstly {
+//            return self.getChatsAsync(channel: channel)
+//            }.done { (onlineChats) in
+//                self.chats = onlineChats
+//                if let title = channel["title"] as? String {
+//                    self.topicLabel.stringValue = "#\(title)"
+//                    self.messageBoxTextField.placeholderString = "Message #\(title)"
+//                }
+//                if let des = channel["description"] as? String {
+//                    self.channelDescription.stringValue = des
+//                }
+//                self.chatTableView.reloadData()
+//                print("reloaded")
+//            }.catch { (error) in
+//                print("dddddddd\(error)")
+//        }
+//    }
     
     override func viewWillAppear() {
         clearChat()
@@ -126,30 +127,30 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
     }
 
     
-    func updateChatsAsync(channel: PFObject) {
-        firstly {
-            self.channel = channel
-            print("倒计时1秒")
-            return after(seconds: 0.1)
-            }
-            .then {
-                return self.getChatsAsync(channel: channel)
-            }.done { (onlineChats) in
-                self.chats = onlineChats
-                if let title = channel["title"] as? String {
-                    self.topicLabel.stringValue = "#\(title)"
-                    self.messageBoxTextField.placeholderString = "Message #\(title)"
-                }
-                if let des = channel["description"] as? String {
-                    self.channelDescription.stringValue = des
-                }
-                self.chatTableView.reloadData()
-                self.chatTableView.scrollRowToVisible(self.chats.count - 1)
-                print("reloaded")
-            }.catch { (error) in
-                print("dddddddd\(error)")
-        }
-    }
+//    func updateChatsAsync(channel: PFObject) {
+//        firstly {
+//            self.channel = channel
+//            print("倒计时1秒")
+//            return after(seconds: 0.1)
+//            }
+//            .then {
+//                return self.getChatsAsync(channel: channel)
+//            }.done { (onlineChats) in
+//                self.chats = onlineChats
+//                if let title = channel["title"] as? String {
+//                    self.topicLabel.stringValue = "#\(title)"
+//                    self.messageBoxTextField.placeholderString = "Message #\(title)"
+//                }
+//                if let des = channel["description"] as? String {
+//                    self.channelDescription.stringValue = des
+//                }
+//                self.chatTableView.reloadData()
+//                self.chatTableView.scrollRowToVisible(self.chats.count - 1)
+//                print("reloaded")
+//            }.catch { (error) in
+//                print("dddddddd\(error)")
+//        }
+//    }
 
 
 //    func getChatsAsync() -> Promise<[PFObject]> {
@@ -174,6 +175,7 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
 //    }
 //
 //
+    
     func updateChannel(channel: PFObject)
     {
         self.channel = channel
@@ -185,7 +187,6 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         if let des = channel["description"] as? String {
             channelDescription.stringValue = des
         }
-        chatTableView.reloadData()
         print("reloaded")
     }
     

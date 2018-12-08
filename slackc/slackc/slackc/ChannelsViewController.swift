@@ -56,7 +56,6 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
             }
             
         }
-        getChannels()
     }
     
     @IBAction func logoutButtonClicked(_ sender: Any) {
@@ -64,6 +63,7 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
         if let mainWC = view.window?.windowController as? MainWindowController {
             mainWC.moveToLogin()
         }
+        chatVC?.clearChat()
     }
     
     
@@ -77,8 +77,9 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
             
         } else {
             let channel  = channels[channelTable.selectedRow]
-//            chatVC?.updateChannel(channel: channel)
-            chatVC?.loadChatsAsync(channel: channel)
+            chatVC?.clearChat()
+            chatVC?.updateChannel(channel: channel)
+//            chatVC?.loadChatsAsync(channel: channel)
         }
     }
     
@@ -104,8 +105,8 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
             if channels != nil {
                 self.channels = channels!
                 self.channelTable.reloadData()
-                self.chatVC?.channel = channels![0]
-                self.chatVC?.loadChatsAsync(channel: channels![0])
+                let channel = channels![0]
+                self.chatVC?.updateChannel(channel: channel)
                 print("successfully got channels")
             }
             

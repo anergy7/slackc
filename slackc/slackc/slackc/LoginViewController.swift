@@ -22,7 +22,7 @@ class LoginViewController: NSViewController,NSTableViewDataSource, NSTableViewDe
         // Do any additional setup after loading the view.
         DispatchQueue.main.asyncAfter(deadline: .now() + .nanoseconds(50)) {
             if var frame = self.view.window?.frame {
-                frame.size = CGSize(width: 480, height: 270)
+                frame.size = CGSize(width: 480, height: 300)
                 self.view.window?.setFrame(frame, display: true, animate: true)
             }
             
@@ -32,7 +32,7 @@ class LoginViewController: NSViewController,NSTableViewDataSource, NSTableViewDe
 
     override func viewDidAppear() {
         if var frame = view.window?.frame {
-            frame.size = CGSize(width: 480, height: 270)
+            frame.size = CGSize(width: 480, height: 300)
             view.window?.setFrame(frame, display: true, animate: true)
         }
     }
