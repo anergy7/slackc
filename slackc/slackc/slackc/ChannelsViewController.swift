@@ -97,9 +97,6 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
     }
     
     func getChannels(){
-        
-        
-        
         let query = PFQuery(className: "Channel")
         query.order(byAscending: "title")
         query.findObjectsInBackground { (channels: [PFObject]?, error: Error?) in
@@ -107,6 +104,8 @@ class ChannelsViewController: NSViewController, NSTableViewDataSource, NSTableVi
             if channels != nil {
                 self.channels = channels!
                 self.channelTable.reloadData()
+                self.chatVC?.channel = channels![0]
+                self.chatVC?.loadChatsAsync(channel: channels![0])
                 print("successfully got channels")
             }
             

@@ -10,7 +10,7 @@ import Cocoa
 import PromiseKit
 import Parse
 
-class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDelegate {
+class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDelegate,NSTextFieldDelegate {
 
     var numberOfColumn : Int = 1
     var channel : PFObject?
@@ -22,6 +22,8 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         
         chatTableView.dataSource = self
         chatTableView.delegate = self
+        messageBoxTextField.delegate = self
+        getChats()
     }
     @IBOutlet weak var messageBoxTextField: NSTextField!
     @IBOutlet weak var chatTableView: NSTableView!
@@ -33,6 +35,7 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         if messageBoxTextField.stringValue == "" {
             return
         }
+        self.messageBoxTextField.stringValue = ""
         let chat = PFObject(className: "Chat")
         chat["message"] = messageBoxTextField.stringValue
         chat["user"] = PFUser.current()
@@ -40,7 +43,7 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         chat.saveInBackground { (success: Bool, error: Error?) in
             if success {
                 print("it works in \(String(describing: self.channel))")
-                self.messageBoxTextField.stringValue = ""
+//                self.updateChatsAsync(channel: self.channel!)
                 self.getChats()
             } else {
                 print("cannot send out")
@@ -60,6 +63,7 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
                     if chats != nil {
                         self.chats = chats!
                         self.chatTableView.reloadData()
+                        self.chatTableView.scrollRowToVisible(self.chats.count - 1)
                     }
                     print("successfully got the data from \(self.channel)")
                     print(chats)
@@ -80,7 +84,6 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
             query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
                 if error == nil {
                     self.chats = chats!
-                    self.chatTableView.reloadData()
                     seal.fulfill(chats!)
                 } else {
                     seal.reject(error!)
@@ -108,13 +111,26 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
                 print("dddddddd\(error)")
         }
     }
+    
+    override func viewWillAppear() {
+        clearChat()
+    }
+    
+    func clearChat() {
+        channel = nil
+        chats = []
+        chatTableView.reloadData()
+        channelDescription.stringValue = ""
+        topicLabel.stringValue = ""
+        messageBoxTextField.placeholderString = ""
+    }
 
     
     func updateChatsAsync(channel: PFObject) {
         firstly {
             self.channel = channel
             print("倒计时1秒")
-            return after(seconds: 1)
+            return after(seconds: 0.1)
             }
             .then {
                 return self.getChatsAsync(channel: channel)
@@ -128,6 +144,7 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
                     self.channelDescription.stringValue = des
                 }
                 self.chatTableView.reloadData()
+                self.chatTableView.scrollRowToVisible(self.chats.count - 1)
                 print("reloaded")
             }.catch { (error) in
                 print("dddddddd\(error)")
@@ -186,6 +203,14 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
                 cell.messageTextLabel.sizeToFit()
             }
             
+            
+            if let time = chat.createdAt {
+                let formatter = DateFormatter()
+                formatter.dateFormat = "MMM d h:mm a"
+                cell.timeLable.stringValue =  formatter.string(from: time)
+            }
+            
+            
             if let user = chat["user"] as? PFUser {
                 if let name = user["name"] as? String {
                     cell.userNameLabel.stringValue = name
@@ -207,5 +232,11 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         return nil
     }
 
+    func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
+        if commandSelector == #selector(insertNewline(_:)) {
+            sendClicked(self)
+        }
+        return false
+    }
     
 }
