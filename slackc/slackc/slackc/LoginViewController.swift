@@ -33,7 +33,6 @@ class LoginViewController: NSViewController,NSTableViewDataSource, NSTableViewDe
                     self.registerButton.isEnabled = true
 
                     mainWC.moveToChat()
-                    
                 }
             } else {
                 self.loginButtonLoginVC.isEnabled = true

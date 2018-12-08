@@ -67,15 +67,15 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
         }
     }
     
-    func getChatsAsync(channel: PFObject) -> Guarantee<[PFObject]> {
-        return Guarantee { seal in
+    func getChatsAsync(channel: PFObject) -> Promise<[PFObject]> {
+        return Promise { seal in
             if channel != nil {
                 let query = PFQuery(className: "Chat")
                 query.whereKey("channel", equalTo: channel)
                 query.addAscendingOrder("createdAt")
                 query.findObjectsInBackground { (chats: [PFObject]?, error: Error?) in
                     if error == nil {
-                        seal(chats ?? [])
+                        seal.fulfill(chats!)
 //                        if chats != nil {
 ////                            self.chats = chats!
 //                            seal.fulfill(chats!)
@@ -83,6 +83,7 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
 //                            print("当前无数据")
 //                        }
                     } else {
+                        seal.reject(error!)
                         print("当前无数据")
                     }
                 }
@@ -92,7 +93,8 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
     
     func updateChatsAsync(channel: PFObject) {
         firstly {
-            after(seconds: 1)
+            print("倒计时3秒")
+            return after(seconds: 3)
             }
             .then {
                 self.getChatsAsync(channel: channel)
@@ -107,9 +109,8 @@ class ChatViewController: NSViewController,NSTableViewDataSource, NSTableViewDel
                 }
                 self.chatTableView.reloadData()
                 print("reloaded")
-
             }.catch { (error) in
-//                print(error)
+                print("dddddddd\(error)")
         }
     }
 
